@@ -4,16 +4,6 @@ import Note from "./Note.jsx";
 import Footer from "./Footer.jsx"
 import notes from "../notes.js"
 
-function createNote(eachNote) {
-  return (
-    <Note
-    key={eachNote.key}
-    title={eachNote.title}
-    content={eachNote.content} 
-  />
-  )
-}
-
 function App() {
   return (
     <div>
@@ -24,7 +14,7 @@ function App() {
         title={eachNote.title}
         content={eachNote.content} 
       />
-      ))}
+  ))}
       <Footer />
     </div>
   )
