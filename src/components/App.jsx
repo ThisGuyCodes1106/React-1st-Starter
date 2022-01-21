@@ -1,32 +1,47 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "./Header.jsx";
 import Note from "./Note.jsx";
 import Footer from "./Footer.jsx"
 import CreateArea from "./CreateArea"
 
 function App() {
+
+  const [notes, setNotes] = useState([])
+
+  function addNote(newNote) {
+    setNotes([...notes, newNote])
+  }
+  console.log(notes);
+
+  function deleteNote(id) {
+    setNotes((prevNotes) => {
+      return prevNotes.filter((note, index) => {
+        return index !== id;
+      })
+    })
+  }
+
   return (
     <div>
       <Header />
-      <CreateArea />
-      <Note
-        key={1}
-        title="Note Title"
-        content="Note Content" 
-      />
+      <CreateArea onAdd={addNote} />
+      <div>
+        {notes.map((note, index) => (
+          <Note
+          key={index}
+          id={index}
+          title={note.title}
+          content={note.content} 
+          onDelete={deleteNote}
+          />
+        ))}
+      </div>
       <Footer />
     </div>
   )
 }
 
 export default App;
-
-//CHALLENGE:
-//1. Implement the add note functionality.
-//- Create a constant that keeps track of the title and content.
-//- Pass the new note back to the App.
-//- Add new note to an array.
-//- Take array and render seperate Note components for each item.
 
 //2. Implement the delete note functionality.
 //- Callback from the Note component to trigger a delete function.
