@@ -1,6 +1,5 @@
 import React from 'react';
 import AddTaskIcon from '@mui/icons-material/AddTask';
-import Fab from '@mui/material/Fab'
 
 function Note(props) {
 

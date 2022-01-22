@@ -5,6 +5,12 @@ import Zoom from '@mui/material/Zoom';
 
 function CreateArea(props) {
 
+  const [isExpanded, setExpanded] = useState(false)
+
+  function userType() {
+    setExpanded(true)
+  }
+
   const [newNote, setNewNote] = useState({
     title: "",
     content: ""
@@ -30,19 +36,22 @@ function CreateArea(props) {
   return (
     <div>
       <form className="create-note">
-        <input 
+        { isExpanded ? (
+          <input 
           name="title" 
           placeholder="Title" 
           onChange={handleChange} 
           value={newNote.title} 
           />
+        ) : null }
         <textarea 
           name="content" 
           placeholder="Take a note..." 
+          onClick={userType}
           onChange={handleChange} 
           value={newNote.content} 
-          rows="1" />
-          <Zoom in={false}>
+          rows={ isExpanded ? "3" : "1" } />
+          <Zoom in={ isExpanded ? true : false }>
           <Fab onClick={submitNote}> <AddIcon /> </Fab>
           </Zoom>
       </form>
@@ -52,4 +61,5 @@ function CreateArea(props) {
 
 export default CreateArea;
 
+// example how to override  MUI components:
 // sx={{position: "absolute", background: "#f5ba13", right: "18px", color: "white"}}
