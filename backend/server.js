@@ -24,25 +24,9 @@ connection.once("open", () => {
   console.log("MongoDB database connection established succesfully");
 })
 
-//Route to get all notes
-app.get("/notes", async (req,res) => {
-  const notes = await Note.find({})
-})
+const notesRouter = require("./routes/note.route")
 
-//Route to add a note
-app.post("/posts/add", async (req, res) => {
-  const newNote = new Note(req.body)
-
-  newNote.save((err, result) => {
-    if (!err) {
-       delete result._doc.__v
-       res.json(result._doc)
-    } else {
-       res.status(400).json({"error": err})
-    }
- })
-})
-
+app.use("/notes", notesRouter)
 
 app.listen(port, () => {
   console.log(`Server has started on port ${port}`);

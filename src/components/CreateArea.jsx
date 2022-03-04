@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import AddIcon from '@mui/icons-material/Add';
 import Fab from '@mui/material/Fab'
 import Zoom from '@mui/material/Zoom';
+import axios from "axios";
 
 function CreateArea(props) {
 
@@ -29,6 +30,10 @@ function CreateArea(props) {
 
   function submitNote(event) {
     props.onAdd(newNote)
+
+    axios.post("http://localhost:5000/notes/", newNote)
+    window.location = "/";
+
     setNewNote({title: "", content: ""})
 
     //SO THE FORM DOES NOT REFRESH PAGE

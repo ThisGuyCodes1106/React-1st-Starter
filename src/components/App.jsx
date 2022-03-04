@@ -9,19 +9,21 @@ function App() {
 
   const [notes, setNotes] = useState([])
 
-  useEffect(() => {
-    axios.get("/notes")
-      .then((res) => setNotes(res.data))
-      .catch((err) => console.error(err));
-  }, []);
-
   function addNote(newNote) {
-    axios.post("/notes/add", newNote)
-      .then((res) => setNotes([...notes, res.data]))
-      .catch((err) => console.log(err));
+    setNotes(prevNotes => {
+      return [...prevNotes, newNote]
+    })
   }
 
+  useEffect(() => {
+    axios.get("http://localhost:5000/notes/")
+      .then(res => {
+        setNotes(res.data)
+      })
+    })
+
   function deleteNote(id) {
+    axios.delete(`http://localhost:5000/notes/${id}`)
     setNotes((prevNotes) => {
       return prevNotes.filter((note, index) => {
         return index !== id;
@@ -37,7 +39,7 @@ function App() {
         {notes.map((note, index) => (
           <Note
           key={index}
-          id={index}
+          _id={note._id}
           title={note.title}
           content={note.content} 
           onDelete={deleteNote}

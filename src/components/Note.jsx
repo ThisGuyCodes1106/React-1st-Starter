@@ -4,7 +4,7 @@ import AddTaskIcon from '@mui/icons-material/AddTask';
 function Note(props) {
 
   function handleClick() {
-    props.onDelete(props.id)
+    props.onDelete(props._id)
   }
 
   return (
