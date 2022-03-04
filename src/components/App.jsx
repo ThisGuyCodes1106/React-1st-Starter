@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import Header from "./Header.jsx";
 import Note from "./Note.jsx";
 import Footer from "./Footer.jsx"
@@ -8,8 +9,16 @@ function App() {
 
   const [notes, setNotes] = useState([])
 
+  useEffect(() => {
+    axios.get("/notes")
+      .then((res) => setNotes(res.data))
+      .catch((err) => console.error(err));
+  }, []);
+
   function addNote(newNote) {
-    setNotes([...notes, newNote])
+    axios.post("/notes/add", newNote)
+      .then((res) => setNotes([...notes, res.data]))
+      .catch((err) => console.log(err));
   }
 
   function deleteNote(id) {

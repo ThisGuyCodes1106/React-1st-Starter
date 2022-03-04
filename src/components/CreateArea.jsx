@@ -30,7 +30,9 @@ function CreateArea(props) {
   function submitNote(event) {
     props.onAdd(newNote)
     setNewNote({title: "", content: ""})
-    event.preventDefault() //SO THE FORM DOES NOT REFRESH PAGE
+
+    //SO THE FORM DOES NOT REFRESH PAGE
+    event.preventDefault()
   }
 
   return (
